@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="layout.xhtml">
+	<ui:define name="title">
+		.:Registro de Distritos:.
+	</ui:define>
+
+	<ui:define name="titleCont">
+		<span>Distritos</span>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form-district">
+
+			<p:growl id="growl" life="2000" />
+			<p:panelGrid id="panel-district" columns="4"
+				style="#{districtView.stylePanelDistrict}">
+				<p:outputLabel for="input-nameDistrict"
+					value="Nombre del Distrito :" />
+				<p:inputText id="input-nameDistrict"
+					value="#{districtView.district.nameDistrict}" />
+			</p:panelGrid>
+
+			<p:toolbar id="toolbar-district">
+				<f:facet name="left">
+					<p:commandButton value="Nuevo" icon="pi pi-file"
+						disabled="#{districtView.disabledButtonNuevo}"
+						actionListener="#{districtView.newDistrict()}" update="@form" />
+
+					<p:commandButton value="Grabar" icon="pi pi-save"
+						disabled="#{districtView.disabledButtonGrabar}"
+						actionListener="#{districtView.saveDistrict()}" update="@form" />
+					<p:commandButton value="Cancelar" icon="pi pi-times"
+						disabled="#{districtView.disabledButtonCancelar}"
+						actionListener="#{districtView.cancelDistrict()}" update="@form" />
+
+					<p:commandButton value="Editar" icon="pi pi-pencil"
+						disabled="#{districtView.disabledButtonEditar}"
+						actionListener="#{districtView.editDistrict()}" update="@form" />
+
+					<p:commandButton value="Eliminar" icon="pi pi-trash"
+						disabled="#{districtView.disabledButtonEliminar}"
+						actionListener="#{districtView.deleteDistrict()}"
+						update=":form-district:table-district :form-district:toolbar-district">
+						<p:confirm header="Confirmación"
+							message="Estas seguro que deseas elimininar a: #{districtView.messageConfirmDialog}?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Si" type="button"
+							styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+					</p:confirmDialog>
+				</f:facet>
+			</p:toolbar>
+
+
+			<p:dataTable id="table-district" value="#{districtView.districts}"
+				var="district" paginator="true" rows="5" paginatorPosition="bottom"
+				selectionMode="single" rowKey="#{district.id}"
+				style="#{districtView.styleTableDistrict}"
+				emptyMessage="No hay distritos encontrados">
+
+				<p:ajax event="rowSelect" listener="#{districtView.selectDistrict}"
+					update="@form" />
+				<p:ajax event="rowUnselect"
+					listener="#{districtView.unselectDistrict}" update="@form" />
+
+
+				<p:column headerText="Id">
+					<h:outputText value="#{district.id}" />
+				</p:column>
+
+				<p:column headerText="Nombre del distrito">
+					<h:outputText value="#{district.nameDistrict}" />
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="layout.xhtml">
+	<ui:define name="title">
+		.:Deportes:.
+	</ui:define>
+
+	<ui:define name="titleCont">
+		<span>Deportes</span>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form-sport">
+
+			<p:growl id="growl" life="2000" />
+			<p:panelGrid id="panel-sport" columns="4"
+				style="#{sportView.stylePanelSport}">
+				<p:outputLabel for="input-nameSport"
+					value="Nombre del Deporte :" />
+				<p:inputText id="input-nameSport"
+					value="#{sportView.sport.nameSport}" />
+			</p:panelGrid>
+
+			<p:toolbar id="toolbar-sport">
+				<f:facet name="left">
+					<p:commandButton value="Nuevo" icon="pi pi-file"
+						disabled="#{sportView.disabledButtonNuevo}"
+						actionListener="#{sportView.newSport()}" update="@form" />
+
+					<p:commandButton value="Grabar" icon="pi pi-save"
+						disabled="#{sportView.disabledButtonGrabar}"
+						actionListener="#{sportView.saveSport()}" update="@form" />
+					<p:commandButton value="Cancelar" icon="pi pi-times"
+						disabled="#{sportView.disabledButtonCancelar}"
+						actionListener="#{sportView.cancelSport()}" update="@form" />
+
+					<p:commandButton value="Editar" icon="pi pi-pencil"
+						disabled="#{sportView.disabledButtonEditar}"
+						actionListener="#{sportView.editSport()}" update="@form" />
+
+					<p:commandButton value="Eliminar" icon="pi pi-trash"
+						disabled="#{sportView.disabledButtonEliminar}"
+						actionListener="#{sportView.deleteSport()}"
+						update=":form-sport:table-sport :form-sport:toolbar-sport">
+						<p:confirm header="Confirmación"
+							message="Estas seguro que deseas elimininar a: #{sportView.messageConfirmDialog}?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Si" type="button"
+							styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+					</p:confirmDialog>
+				</f:facet>
+			</p:toolbar>
+
+
+			<p:dataTable id="table-sport" value="#{sportView.sports}"
+				var="sport" paginator="true" rows="5" paginatorPosition="bottom"
+				selectionMode="single" rowKey="#{sport.id}"
+				style="#{sportView.styleTableSport}"
+				emptyMessage="No hay deportes encontrados">
+
+				<p:ajax event="rowSelect" listener="#{sportView.selectSport}"
+					update="@form" />
+				<p:ajax event="rowUnselect"
+					listener="#{sportView.unselectSport}" update="@form" />
+
+
+				<p:column headerText="Id">
+					<h:outputText value="#{sport.id}" />
+				</p:column>
+
+				<p:column headerText="Nombre del deporte">
+					<h:outputText value="#{sport.nameSport}" />
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
