@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="layout.xhtml">
+	<ui:define name="title">
+		.:Evento:.
+	</ui:define>
+
+	<ui:define name="titleCont">
+		<span>Eventos</span>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form-event">
+
+
+			<p:growl id="growl" life="2000" />
+			<p:panelGrid id="panel-event" columns="4"
+				style="#{eventView.stylePanelEvent}">
+				<p:outputLabel for="input-nameEvent" value="Nombre de evento :" />
+				<p:inputText id="input-nameEvent"
+					value="#{eventView.event.nameEvent}" />
+				<p:outputLabel for="input-direction" value="Direccion :" />
+				<p:inputText id="input-direction"
+					value="#{eventView.event.direction}" />
+
+				<p:outputLabel for="input-dayEventStart"
+					value="Dia de inicio Evento :" />
+				<p:calendar id="input-dayEventStart" type="date" locale="es"
+					value="#{eventView.event.dayEventStart}" />
+				<p:outputLabel for="input-dayEventEnd" value="Dia de fin Evento :" />
+				<p:calendar id="input-dayEventEnd" type="date" locale="es"
+					value="#{eventView.event.dayEventEnd}" />
+
+				<div>
+					<!-- PARA TRAER DATOS DEL DISTRITO -->
+					<p:outputLabel for="select-district" value="Distrito :" />
+					<p:selectOneMenu id="select-district"
+						value="#{eventView.event.districtId}">
+						<f:selectItem itemLabel="Selecciona uno" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{eventView.districts}" var="district"
+							itemLabel="#{district.nameDistrict}" itemValue="#{district.id}" />
+					</p:selectOneMenu>
+
+					<!-- PARA TRAER DATOS DEL TIPO DE EVENTO -->
+					<p:outputLabel for="select-typeEvent" value="Tipo de Evento :" />
+					<p:selectOneMenu id="select-typeEvent"
+						value="#{eventView.event.typeEventId}">
+						<f:selectItem itemLabel="Selecciona uno" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{eventView.typeEvents}" var="typeEvent"
+							itemLabel="#{typeEvent.nameTypeEvent}"
+							itemValue="#{typeEvent.id}" />
+					</p:selectOneMenu>
+				</div>
+
+				<!-- PARA TRAER DATOS DEL TIPO DE PAGO -->
+				<p:outputLabel for="select-typePay" value="Tipo de Pago :" />
+				<p:selectOneMenu id="select-typePay"
+					value="#{eventView.event.typePayId}">
+					<f:selectItem itemLabel="Selecciona uno" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{eventView.typePays}" var="typePay"
+						itemLabel="#{typePay.nameTypePay}" itemValue="#{typePay.id}" />
+				</p:selectOneMenu>
+
+				<!-- PARA TRAER DATOS DEL DEPORTE -->
+				<p:outputLabel for="select-sport" value="Deporte :" />
+				<p:selectOneMenu id="select-sport"
+					value="#{eventView.event.sportId}">
+					<f:selectItem itemLabel="Selecciona uno" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{eventView.sports}" var="sport"
+						itemLabel="#{sport.nameSport}" itemValue="#{sport.id}" />
+				</p:selectOneMenu>
+
+				<!-- PARA TRAER DATOS DEL ORGANIZADOR -->
+				<p:outputLabel for="select-organizer" value="Organizador :" />
+				<p:selectOneMenu id="select-organizer"
+					value="#{eventView.event.organizerId}">
+					<f:selectItem itemLabel="Selecciona uno" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{eventView.organizers}" var="organizer"
+						itemLabel="#{organizer.nameOrganizer}" itemValue="#{organizer.id}" />
+				</p:selectOneMenu>
+			</p:panelGrid>
+
+
+			<p:toolbar id="toolbar-event">
+				<f:facet name="left">
+					<p:commandButton value="Nuevo" icon="pi pi-file"
+						disabled="#{eventView.disabledButtonNuevo}"
+						actionListener="#{eventView.newEvent()}" update="@form" />
+
+					<p:commandButton value="Grabar" icon="pi pi-save"
+						disabled="#{eventView.disabledButtonGrabar}"
+						actionListener="#{eventView.saveEvent()}" update="@form" />
+					<p:commandButton value="Cancelar" icon="pi pi-times"
+						disabled="#{eventView.disabledButtonCancelar}"
+						actionListener="#{eventView.cancelEvent()}" update="@form" />
+
+					<p:commandButton value="Editar" icon="pi pi-pencil"
+						disabled="#{eventView.disabledButtonEditar}"
+						actionListener="#{eventView.editEvent()}" update="@form" />
+
+					<!-- probando eliminar con actualizar ventana listOrganizer el table-organizer -->
+					<p:commandButton value="Eliminar" icon="pi pi-trash"
+						disabled="#{eventView.disabledButtonEliminar}"
+						actionListener="#{eventView.deleteEvent()}"
+						update=":form-event:table-event :form-event:toolbar-event">
+						<p:confirm header="Confirmación"
+							message="Estas seguro que deseas elimininar a: #{eventView.messageConfirmDialog}?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Si" type="button"
+							styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+					</p:confirmDialog>
+				</f:facet>
+			</p:toolbar>
+
+
+
+
+			<p:dataTable id="table-event" value="#{eventView.events}" var="event"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				selectionMode="single" rowKey="#{event.id}"
+				style="#{eventView.styleTableEvent}"
+				emptyMessage="No hay Eventos encontrados">
+
+				<p:ajax event="rowSelect" listener="#{eventView.selectEvent}"
+					update="@form" />
+				<p:ajax event="rowUnselect" listener="#{eventView.unselectEvent}"
+					update="@form" />
+
+				<p:column headerText="Id">
+					<h:outputText value="#{event.id}" />
+				</p:column>
+
+				<p:column headerText="Nombre del Evento">
+					<h:outputText value="#{event.nameEvent}" />
+				</p:column>
+
+				<p:column headerText="Direccion">
+					<h:outputText value="#{event.direction}" />
+				</p:column>
+
+				<p:column headerText="Dia de Inicio Evento">
+					<h:outputText value="#{event.dayEventStart}" />
+				</p:column>
+
+				<p:column headerText="Día de fin Evento">
+					<h:outputText value="#{event.dayEventEnd}" />
+				</p:column>
+
+				<p:column headerText="Distrito">
+					<h:outputText value="#{event.district.nameDistrict}" />
+				</p:column>
+
+				<p:column headerText="Organizador">
+					<h:outputText value="#{event.organizer.nameOrganizer}" />
+				</p:column>
+
+				<p:column headerText="Tipo de Evento">
+					<h:outputText value="#{event.typeEvent.nameTypeEvent}" />
+				</p:column>
+
+				<p:column headerText="Tipo de Pago">
+					<h:outputText value="#{event.typepay.nameTypePay}" />
+				</p:column>
+
+				<p:column headerText="Deporte">
+					<h:outputText value="#{event.sport.nameSport}" />
+				</p:column>
+
+			</p:dataTable>
+
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
