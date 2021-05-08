@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="layout.xhtml">
+	<ui:define name="title">
+		.:Tipo de Pago:.
+	</ui:define>
+
+	<ui:define name="titleCont">
+		<span>Tipos de Pagos</span>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form-typePay">
+
+			<p:growl id="growl" life="2000" />
+			<p:panelGrid id="panel-typePay" columns="4"
+				style="#{typePayView.stylePanelTypePay}">
+				<p:outputLabel for="input-nameTypePay"
+					value="Nombre del Tipo de Pago :" />
+				<p:inputText id="input-nameTypePay"
+					value="#{typePayView.typePay.nameTypePay}" />
+
+				<p:outputLabel for="input-quantityUser"
+					value="Cantidad Usuario :" />
+				<p:inputText id="input-quantityUser"
+					value="#{typePayView.typePay.quantityUser}" />
+
+				<p:outputLabel for="input-cost"
+					value="Costo :" />
+				<p:inputText id="input-cost"
+					value="#{typePayView.typePay.cost}" />
+			</p:panelGrid>
+
+			<p:toolbar id="toolbar-typePay">
+				<f:facet name="left">
+					<p:commandButton value="Nuevo" icon="pi pi-file"
+						disabled="#{typePayView.disabledButtonNuevo}"
+						actionListener="#{typePayView.newTypePay()}" update="@form" />
+
+					<p:commandButton value="Grabar" icon="pi pi-save"
+						disabled="#{typePayView.disabledButtonGrabar}"
+						actionListener="#{typePayView.saveTypePay()}" update="@form" />
+					<p:commandButton value="Cancelar" icon="pi pi-times"
+						disabled="#{typePayView.disabledButtonCancelar}"
+						actionListener="#{typePayView.cancelTypePay()}" update="@form" />
+
+					<p:commandButton value="Editar" icon="pi pi-pencil"
+						disabled="#{typePayView.disabledButtonEditar}"
+						actionListener="#{typePayView.editTypePay()}" update="@form" />
+
+					<p:commandButton value="Eliminar" icon="pi pi-trash"
+						disabled="#{typePayView.disabledButtonEliminar}"
+						actionListener="#{typePayView.deleteTypePay()}"
+						update=":form-typePay:table-typePay :form-typePay:toolbar-typePay">
+						<p:confirm header="Confirmación"
+							message="Estas seguro que deseas elimininar a: #{typePayView.messageConfirmDialog}?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Si" type="button"
+							styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+					</p:confirmDialog>
+				</f:facet>
+			</p:toolbar>
+
+
+			<p:dataTable id="table-typePay" value="#{typePayView.typePays}" var="typePay"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				selectionMode="single" rowKey="#{typePay.id}"
+				style="#{typePayView.styleTableTypePay}"
+				emptyMessage="No hay tipo de pagos encontrados">
+
+				<p:ajax event="rowSelect" listener="#{typePayView.selectTypePay}"
+					update="@form" />
+				<p:ajax event="rowUnselect" listener="#{typePayView.unselectTypePay}"
+					update="@form" />
+
+
+				<p:column headerText="Id">
+					<h:outputText value="#{typePay.id}" />
+				</p:column>
+
+				<p:column headerText="Nombre del tipo de pago">
+					<h:outputText value="#{typePay.nameTypePay}" />
+				</p:column>
+				
+				<p:column headerText="Cantidad Usuario">
+					<h:outputText value="#{typePay.quantityUser}" />
+				</p:column>
+				
+				<p:column headerText="Costo">
+					<h:outputText value="#{typePay.cost}" />
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

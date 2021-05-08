@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="layout.xhtml">
+	<ui:define name="title">
+		.:Registro de Usuario:.
+	</ui:define>
+
+	<ui:define name="titleCont">
+		<span>Usuarios</span>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form-user">
+
+			<p:growl id="growl" life="2000" />
+			<p:panelGrid id="panel-user" columns="4"
+				style="#{userView.stylePanelUser}">
+				<p:outputLabel for="input-nameUser" value="Nombres :" />
+				<p:inputText id="input-nameUser" value="#{userView.user.nameUser}" />
+				<p:outputLabel for="input-surnameUser" value="Apellidos :" />
+				<p:inputText id="input-surnameUser"
+					value="#{userView.user.surnameUser}" />
+
+				<p:outputLabel for="input-sexUser" value="Sexo :" />
+				<p:inputText id="input-sexUser" value="#{userView.user.sexUser}" />
+				<p:outputLabel for="input-dni" value="DNI :" />
+				<p:inputText id="input-dni" value="#{userView.user.dniUser}" />
+
+				<p:outputLabel for="input-userCompetitor" value="Usuario :" />
+				<p:inputText id="input-userCompetitor"
+					value="#{userView.user.userCompetitor}" />
+				<p:outputLabel for="input-passwordCompetitor" value="Contraseña :" />
+				<p:inputText id="input-passwordCompetitor"
+					value="#{userView.user.passwordCompetitor}" />
+
+				<p:outputLabel for="input-birthday" value="Fecha de Nacimiento :" />
+				<p:calendar id="input-birthday" type="date" locale="es"
+					value="#{userView.user.birthday}" />
+				<p:outputLabel for="select-district" value="Distrito :" />
+				<p:selectOneMenu id="select-district"
+					value="#{userView.user.districtId}">
+					<f:selectItem itemLabel="Selecciona uno" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{districtView.districts}" var="district"
+						itemLabel="#{district.nameDistrict}" itemValue="#{district.id}" />
+				</p:selectOneMenu>
+			</p:panelGrid>
+
+
+			<p:toolbar id="toolbar-user">
+				<f:facet name="left">
+					<p:commandButton value="Nuevo" icon="pi pi-file"
+						disabled="#{userView.disabledButtonNuevo}"
+						actionListener="#{userView.newUser()}" update="@form" />
+
+					<p:commandButton value="Grabar" icon="pi pi-save"
+						disabled="#{userView.disabledButtonGrabar}"
+						actionListener="#{userView.saveUser()}" update="@form" />
+					<p:commandButton value="Cancelar" icon="pi pi-times"
+						disabled="#{userView.disabledButtonCancelar}"
+						actionListener="#{userView.cancelUser()}" update="@form" />
+
+					<p:commandButton value="Editar" icon="pi pi-pencil"
+						disabled="#{userView.disabledButtonEditar}"
+						actionListener="#{userView.editUser()}" update="@form" />
+
+					<!-- probando eliminar con actualizar ventana listOrganizer el table-organizer -->
+					<p:commandButton value="Eliminar" icon="pi pi-trash"
+						disabled="#{userView.disabledButtonEliminar}"
+						actionListener="#{userView.deleteUser()}"
+						update=":form-user:table-user :form-user:toolbar-user">
+						<p:confirm header="Confirmación"
+							message="Estas seguro que deseas elimininar a: #{userView.messageConfirmDialog}?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Si" type="button"
+							styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+					</p:confirmDialog>
+				</f:facet>
+			</p:toolbar>
+
+
+			<p:panelGrid id="panel-search" columns="4"
+				style="#{userView.styleTableUser}">
+				<p:outputLabel for="input-search-nameUser" value="Nombres :" />
+				<p:inputText id="input-search-nameUser"
+					value="#{userView.userSearch.nameUser}" />
+				<p:commandButton value="Buscar" icon="pi pi-search"
+					actionListener="#{userView.findByNameUser}"
+					update=":form-user:table-user :form-user:toolbar-user" />
+				<p:commandButton value="Limpiar" icon="pi pi-refresh"
+					actionListener="#{userView.cleanByNombres}" update="@form" />
+
+				<p:outputLabel for="input-search-dniUser"
+					value="Número de documento :" />
+				<p:inputText id="input-search-dniUser"
+					value="#{userView.userSearch.dniUser}" />
+				<p:commandButton value="Buscar" icon="pi pi-search"
+					actionListener="#{userView.findBydni()}"
+					update=":form-user:table-user :form-user:toolbar-user" />
+				<p:commandButton value="Limpiar" icon="pi pi-refresh"
+					actionListener="#{userView.cleanBydni()}" update="@form" />
+			</p:panelGrid>
+
+
+			<p:dataTable id="table-user" value="#{userView.users}" var="user"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				selectionMode="single" rowKey="#{user.id}"
+				style="#{userView.styleTableUser}"
+				emptyMessage="No hay usuarios encontrados">
+
+				<p:ajax event="rowSelect" listener="#{userView.selectUser}"
+					update="@form" />
+				<p:ajax event="rowUnselect" listener="#{userView.unselectUser}"
+					update="@form" />
+
+				<p:column headerText="Id">
+					<h:outputText value="#{user.id}" />
+				</p:column>
+
+				<p:column headerText="Nombres">
+					<h:outputText value="#{user.nameUser}" />
+				</p:column>
+
+				<p:column headerText="Apellidos">
+					<h:outputText value="#{user.surnameUser}" />
+				</p:column>
+
+				<p:column headerText="DNI">
+					<h:outputText value="#{user.dniUser}" />
+				</p:column>
+
+				<p:column headerText="Día de nacimiento">
+					<h:outputText value="#{user.birthday}" />
+				</p:column>
+
+				<p:column headerText="Sexo">
+					<h:outputText value="#{user.sexUser}" />
+				</p:column>
+
+				<p:column headerText="Distrito">
+					<h:outputText value="#{user.district.nameDistrict}" />
+				</p:column>
+
+			</p:dataTable>
+
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
