@@ -13,23 +13,21 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "sports")
-public class Sport {
-	
+@Table(name = "type_events")
+public class TypeEvent {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name = "name_sport", length = 30, nullable = false)
-	private String nameSport;
+	@Column(name = "name_type_event", length = 30, nullable = false)
+	private String nameTypeEvent;
 	
-	@OneToMany(mappedBy = "sport", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "typeEvent", fetch = FetchType.LAZY)
 	private List<Event> events;
 	
-	public Sport() {
+	public TypeEvent() {
 		events = new ArrayList<Event>();
 	}
-
 
 	public Integer getId() {
 		return id;
@@ -39,12 +37,12 @@ public class Sport {
 		this.id = id;
 	}
 
-	public String getNameSport() {
-		return nameSport;
+	public String getNameTypeEvent() {
+		return nameTypeEvent;
 	}
 
-	public void setNameSport(String nameSport) {
-		this.nameSport = nameSport;
+	public void setNameTypeEvent(String nameTypeEvent) {
+		this.nameTypeEvent = nameTypeEvent;
 	}
 
 	public List<Event> getEvents() {
@@ -54,5 +52,5 @@ public class Sport {
 	public void setEvents(List<Event> events) {
 		this.events = events;
 	}
-
+	
 }
