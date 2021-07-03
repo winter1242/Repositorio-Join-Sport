@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+<!-- Google Fonts -->
+<link
+	th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i}"
+	rel="stylesheet">
+</head>
+<body>
+
+<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<header th:replace="layout/layoutPrincipal :: header"></header>
+	
+	
+<!-- Event Form Begin -->
+    <div class="contact-form spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>EDIT EVENT</h3>
+                	<div th:if="${mensaje}" class="alert alert-danger alert-dismissable" role="alert" th:text="${mensaje}"></div>
+                    <form th:action="@{/events/update/} + ${event.id}" th:object="${event}" method="post">
+                        <div class="input-list">
+                        	
+                            <input type="text" th:field="*{nameEvent}" placeholder="Name">
+                           
+                            <input type="text" th:field="*{direction}" placeholder="Direction" style="width: 750px;">
+                            
+                            <div class="form-row" style="margin-left: -0px;">
+                            	<select th:field="*{sport}" id="sport" class="form-control" style="width: 31.5%; height: calc(1.5em + .75rem + 10px); margin-right: 20px; margin-bottom: 23px; border-radius: 10px;">
+	                      			
+	                      			<option th:each="sport:${sports}" th:value="${sport.id}" th:text="${sport.nameSport}"></option>
+	                      		</select>	
+	                      		
+	                      		<select th:field="*{typeEvent}" id="typeEvent" class="form-control" style="width: 31.5%; height: calc(1.5em + .75rem + 10px); margin-right: 20px; margin-bottom: 23px; border-radius: 10px;">
+	                      			
+	                      			<option th:each="typeEvent:${typeEvents}" th:value="${typeEvent.id}" th:text="${typeEvent.nameTypeEvent}"></option>
+	                      		</select>
+	                      		
+	                      		<select th:field="*{typepay}" id="typepay" class="form-control" style="width: 31.5%; height: calc(1.5em + .75rem + 10px); margin-right: 20px; margin-bottom: 23px; border-radius: 10px;">
+	                      			
+	                      			<option th:each="typepay:${typepays}" th:value="${typepay.id}" th:text="${typepay.nameTypePay}"></option>
+	                      		</select>
+	                      		
+	                      	</div>	
+	                      	
+	                      	<div class="form-row" style="margin-left: -0px;">
+	                      		<div class="form-row" style="margin-left: -0px; flex-direction: column; width: 370px;">	
+	                      			<label for="fechaInicio" style="margin-left: 1px;">Start date</label>
+	                      			<input type="date" class="form-control" th:field="*{dayEventStart}" placeholder="Ingrese la fecha de inicio" style="width: 370px;">
+	                      		</div>
+	                      	
+	                      		<div class="form-row" style="margin-left: 25px; flex-direction: column;">	
+	                      			<label for="fechaFin" style="margin-left: 1px;">Ending date</label>
+					   				<input type="date" class="form-control" th:field="*{dayEventEnd}" placeholder="Ingrese la fecha de fin" style="width: 370px;">
+	                      		</div>
+	                      		
+	                      		<select th:field="*{district}" id="district" class="form-control" style="width: 31.5%; height: calc(1.5em + .75rem + 14px); margin-right: 20px; margin-bottom: 24px; border-radius: 10px; margin-block: auto;">
+	                      			
+	                      			<option th:each="district:${districts}" th:value="${district.id}" th:text="${district.nameDistrict}"></option>
+	                      		</select>
+	                      	</div>
+	                      	
+
+	                      	
+                            <textarea  th:field="*{photo}" placeholder="photo"></textarea>
+                        </div>
+                        
+                        <button type="submit"  class="site-btn">Update</button>
+                        <a th:href="@{/events}" class="site-btn">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Event Form End -->
+
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

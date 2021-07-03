@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+<!-- Google Fonts -->
+<link
+	th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i}"
+	rel="stylesheet">
+	
+</head>
+<body>
+
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<header th:replace="layout/layoutPrincipal :: header"></header>
+
+	<!-- START MY PROFILE -->
+	<div class="wrapper bg-white mt-sm-5" style="width: 600px; height: auto; margin-left: 450px;" >
+		<form class="form" >
+		<h4 class="pb-4 border-bottom">My Profile: <b >User Organizer</b></h4>
+		
+		<div class="py-2">
+			<div class="row py-2">
+				<div class="col-md-6">
+					<label for="firstname">Name</label> <input type="text" 
+						class="bg-light form-control" placeholder="Name Organizer" aria-label="Disabled input example">
+				</div>
+				<div class="col-md-6">
+					<label for="firstname">Surname</label> <input type="text"
+						class="bg-light form-control" placeholder="Surname Organizer" aria-label="Disabled input example">
+				</div>
+			</div>
+			<div class="row py-2">
+				<div class="col-md-6">
+					<label for="firstname">Birthday</label> <input type="text"
+						class="bg-light form-control" placeholder="Birthday Organizer" aria-label="Disabled input example">
+				</div>
+				<div class="col-md-6">
+					<label for="firstname">RUC</label> <input type="text"
+						class="bg-light form-control" placeholder="RUC Organizer" aria-label="Disabled input example">
+				</div>
+			</div>
+			<div class="row py-2">
+				<div class="col-md-6">
+					<label for="firstname">DNI</label> <input type="text"
+						class="bg-light form-control" placeholder="DNI Organizer" aria-label="Disabled input example">
+				</div>
+				<div class="col-md-6">
+					<label for="firstname">Organization</label> <input type="text"
+						class="bg-light form-control" placeholder="Organization Organizer" aria-label="Disabled input example">
+				</div>
+			</div>
+			<div class="row py-2">
+				<div class="col-md-6">
+					<label for="firstname">User</label> <input type="text"
+						class="bg-light form-control" placeholder="User Organizer" aria-label="Disabled input example">
+				</div>
+				<div class="col-md-6">
+					<label for="firstname">Password</label> <input type="password"
+						class="bg-light form-control" placeholder="Password Organizer" aria-label="Disabled input example">
+				</div>
+			</div>
+			<div class="py-3 pb-4 ">
+				<a type="submit" class="site-btn" href="/organizers/myProfile">Edit Profile</a>
+				<a type="submit" class="site-btn" href="/organizers/myProfile">Cancel</a>
+			</div>
+		</div>
+		</form>
+	</div>
+	<!-- END MY PROFILE -->
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+<link rel="stylesheet" th:href="@{/css/solid.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/elegant-icons.css}">
+<link rel="stylesheet" th:href="@{/css/flaticon.css}">
+<link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+<link rel="stylesheet" th:href="@{/css/slicknav.min.css}">
+<!-- Google Font -->
+<link
+	href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900&display=swap"
+	rel="stylesheet">
+
+
+<title>JoinSport</title>
+</head>
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+
+	<header th:fragment="header" class="header-section header-normal">
+
+		<!-- Offcanvas Menu Begin -->
+		<div class="offcanvas__menu__overlay"></div>
+		<div class="offcanvas__menu__wrapper">
+			<div class="canvas__close">
+				<span class="fa fa-times-circle-o"></span>
+			</div>
+			<div class="offcanvas__logo">
+				<a th:href="@{/}"><img th:src="@{/img/sport.png}" alt=""></a>
+			</div>
+			<nav class="offcanvas__menu mobile-menu">
+				<ul>
+					<li class="active"><a th:href="@{/}">Home</a></li>
+					<li><a th:href="@{/events}">Events</a>
+						<ul class="dropdown">
+							<li sec:authorize="hasRole('ROLE_ORGANIZER')"><a th:href="@{/events/new}">Create Event</a></li>
+							<li sec:authorize="hasRole('ROLE_ORGANIZER')"><a th:href="@{/organizers/viewEventOrganizer/}">My Events O</a></li>
+							<li sec:authorize="hasRole('ROLE_COMPETITOR')"><a th:href="@{/competitors/viewEventCompetitor/}">My Events P</a></li>
+						</ul>
+					<li sec:authorize="hasRole('ROLE_ORGANIZER')"><a th:href="@{'/organizers/myProfile/'}">My Profile O</a></li>
+					<li sec:authorize="hasRole('ROLE_COMPETITOR')"><a th:href="@{/competitors/myProfile/}">My Profile P</a></li>
+				</ul>
+			</nav>
+			<div id="mobile-menu-wrap"></div>
+			<div class="offcanvas__auth">
+				<ul>
+					<li sec:authorize="isAuthenticated()"><i class="fa fa-user" style="color: white; margin-right: 5px;"></i><span sec:authentication="name" style="color: white;"></span> </li>
+					<li  sec:authorize="isAnonymous()"><a th:href="@{/login}"><span class="fas fa-share-square"></span>
+							Signin</a></li>
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}"><span class="fas fa-share-square"></span>
+							Logout</a></li>
+				</ul>
+			</div>
+			<div class="offcanvas__info">
+				<ul>
+					<li><span class="icon_phone"></span> +51 999 999 999</li>
+					<li><span class="fa fa-envelope"></span> JoinSport@outlook.com</li>
+				</ul>
+			</div>
+		</div>
+		<!-- Offcanvas Menu End -->
+
+		<!-- Header Section Begin -->
+			<div class="header__info">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 col-md-6">
+							<div class="header__info-left">
+								<ul>
+									<li><span class="icon_phone"></span> +51 999 999 999</li>
+									<li><span class="fa fa-envelope"></span>
+										JoinSport@outlook.com</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="header__info-right">
+								<ul>
+									<li sec:authorize="isAuthenticated()"><i class="fa fa-user" style="color: white; margin-right: 5px;"></i><span sec:authentication="name" style="color: white;"></span> </li>
+									<li  sec:authorize="isAnonymous()"><a th:href="@{/login}"><span class="fas fa-share-square"></span>
+										Signin</a></li>
+									<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}"><span class="fas fa-share-square"></span>
+										Logout</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-3">
+						<div class="header__logo">
+							<a th:href="@{/}"><img th:src="@{/img/sport.png}" alt=""></a>
+						</div>
+					</div>
+					<div class="col-lg-9 col-md-9">
+						<nav class="header__menu">
+							<ul>
+								<li class="active"><a th:href="@{/}">Home</a></li>
+								<li><a th:href="@{/events}">Events</a>
+									<ul class="dropdown">
+										<li sec:authorize="hasRole('ROLE_ORGANIZER')"><a th:href="@{/events/new}">Create Event</a></li>
+										<li sec:authorize="hasRole('ROLE_ORGANIZER')"><a th:href="@{'/organizers/viewEventOrganizer/'}">My Events O</a></li>
+										<li sec:authorize="hasRole('ROLE_COMPETITOR')"><a th:href="@{/competitors/viewEventCompetitor/}">My Events P</a></li>
+									</ul></li>
+								<li sec:authorize="hasRole('ROLE_ORGANIZER')"><a th:href="@{/organizers/myProfile/}">My Profile O</a></li>
+								<li sec:authorize="hasRole('ROLE_COMPETITOR')"><a th:href="@{/competitors/myProfile/}">My Profile P</a></li>
+
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<div class="canvas__open">
+					<span class="fa fa-bars"></span>
+				</div>
+			</div>
+		<!-- Header End -->
+
+	</header>
+
+
+	<footer th:fragment="footer" class="footer-section">
+		<div class="footer__top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-md-6">
+						<div class="footer__top-call">
+							<h5>Do you need help? Contact Us</h5>
+							<h2>+51 999 999 999</h2>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6">
+						<div class="footer__top-auth">
+							<h5>Join now and enjoy creating sport events</h5>
+							<a href="#" class="primary-btn">Log in</a> <a href="#"
+								class="primary-btn sign-up">Sign Up</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer__text set-bg" th:data-setbg="@{/img/footer-bg.png}">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-4 col-sm-8">
+						<div class="footer__text-about">
+							<div class="footer__logo">
+								<a th:href="@{/}"><img th:src="@{/img/sport.png}" alt=""></a>
+							</div>
+							<p>Join now and enjoy</p>
+							<div class="footer__social">
+								<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
+									class="fa fa-twitter"></i></a> <a href="#"><i
+									class="fa fa-youtube-play"></i></a> <a href="#"><i
+									class="fa fa-instagram"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-8">
+						<div class="footer__text-widget">
+							<h5>CONTACT US</h5>
+							<ul class="footer__widget-info">
+								<li><span class="fa fa-map-marker"></span> Lima 007</li>
+								<li><span class="fa fa-mobile"></span> +51 999 999 999</li>
+								<li><span class="fa fa-headphones"></span>
+									JoinSport@outlook.com</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="footer__text-copyright">
+					<p>
+						Copyright &copy;
+						<script>document.write(new Date().getFullYear());</script>
+						Todos los derechos reservados | JoinSport
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/chosen.jquery.min.js}"></script>
+		<script th:src="@{/js/jquery.slicknav.js}"></script>
+		<script th:src="@{/js/owl.carousel.min.js}"></script>
+		<script th:src="@{/js/main.js}"></script>
+		<script th:src="@{/js/fontawesome.min.js}"></script>
+		<script th:src="@{/js/sweetalert.min.js}"></script>
+	</footer>
+
+</body>
+</html>

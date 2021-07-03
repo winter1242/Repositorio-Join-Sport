@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+<!-- Google Fonts -->
+<link
+	th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i}"
+	rel="stylesheet">
+</head>
+<body>
+
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<header th:replace="layout/layoutPrincipal :: header"></header>
+
+
+	<!-- START MY PROFILE -->
+	<div class="wrapper bg-white mt-sm-5" style="width: 600px; height: auto; margin-left: 450px;" >
+		<form class="form" th:action="@{/eventCompetitors/event-competidor-save}" th:object="${eventUser}"	method="post">
+			<h4 class="pb-4 border-bottom">Do you want to attend the event?</h4>
+		
+			<div class="py-2">
+				<div class="row py-2">
+					<div class="col-md-6">
+						 
+						<!-- 
+						<label for="firstname" th:field="*{event}" >Event</label> 
+						
+							<select th:field="*{user}"  id="user" class="form-control" style="width: 100%; height: calc(1.5em + .75rem + 10px); margin-right: 20px; margin-bottom: 23px; border-radius: 10px;" >
+	                     	 	<option th:each="user:${users}" th:value="${user.id}" th:text="${user.userCompetitor}" > </option>
+	                    	</select> -->
+	                     
+	                     <!-- 
+	                    <input type="text" th:text="${event.id}" th:placeholder="Name">
+	                    <label for="firstname" th:text="${event.id}">Events</label> -->
+	                    <!-- 
+							<select th:field="*{event}" id="event" class="form-control" style="width: 100%; height: calc(1.5em + .75rem + 10px); margin-right: 20px; margin-bottom: 23px; border-radius: 10px;" >
+	                     	 	<option th:each="event:${events}" th:value="${event.id}" th:text="${event.nameEvent}" > </option>
+	                    	</select>	
+	                    -->
+					</div>
+				</div>
+					<div class="py-3 pb-4">
+						<button type="submit" class="site-btn">Acept</button>
+						<a type="submit" class="site-btn" href="/events/">Cancel</a>
+					</div>
+			
+			</div>
+		</form>
+	</div>
+	<!-- END MY PROFILE -->
+
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

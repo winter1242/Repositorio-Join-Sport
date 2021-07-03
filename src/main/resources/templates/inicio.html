@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+	rel="stylesheet">
+</head>
+<body>
+<!-- Page Preloder: Visualización de carga de la página-->
+		<div id="preloder">
+			<div class="loader"></div>
+		</div>
+
+<header th:replace="layout/layout :: header"></header>
+
+    
+
+	<!-- Hero Section Begin -->
+    <section class="hero-section">
+        <div class="hero__slider owl-carousel">
+            <div class="hero__item set-bg" th:data-setbg= "@{/img/hero/hero-1.jpg}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="hero__text">
+                                <h5>From S/ 5 by month</h5>
+                                <h2>The best website to<br /> create events</h2>
+                                <a href="#" class="primary-btn">Start now</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="hero__img">
+                                <img th:src="@{/img/canchita.png}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__item set-bg" th:data-setbg="@{/img/hero/hero-1.jpg}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="hero__text">
+                                <h5>From S/ 5 by month</h5>
+                                <h2>Your favorite events<br /></h2>
+                                <a href="#" class="primary-btn">Start now</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="hero__img">
+                                <img th:src="@{/img/canchita.png}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+<main>
+<section class="container">
+	
+	<h1></h1>
+	
+</section>
+</main>
+
+<!-- Choose Plan Section Begin -->
+    <section class="choose-plan-section spad" id="nosotros">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <img th:src="@{/img/juegos.png}" alt="">
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="plan__text">
+                        <h3>Why register with us?</h3>
+                        <ul>
+                            <li><span class="fa fa-check"></span> Masive views by social networks</li>
+                            <li><span class="fa fa-check"></span> Safe events</li>
+                            <li><span class="fa fa-check"></span> We take care your account</li>
+                            <li><span class="fa fa-check"></span> We ensure succesfull events</li>
+                            <li><span class="fa fa-check"></span> Safe contacts</li>
+                            
+                        </ul>
+                        <a href="#" class="primary-btn">Start now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Choose Plan Section End -->
+    
+    <!-- Pricing Section Begin -->
+    <section class="pricing-section spad" id="planes">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-md-7">
+                    <div class="section-title normal-title">
+                        <h3>CHOOSE YOUR PLAN</h3>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5">
+                    <div class="pricing__swipe-btn">
+                        <label for="month" class="active">By Event
+                            <input type="radio" id="month">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row monthly__plans active">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="pricing__item">
+                        <h4>Basic</h4>
+                        <h3>S/5.00 <span>/ event</span></h3>
+                        <ul>
+                            <li>Ilimitated events</li>
+                            <li>Maximum 10 participants</li>
+                            <li>Without discount</li>
+                        </ul>
+                        <a href="#" class="primary-btn">Choose your plan</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="pricing__item">
+                        <h4>Sportistas</h4>
+                        <h3>S/7.00 <span>/ event</span></h3>
+                        <ul>
+                            <li>Ilimitated events</li>
+                            <li>Maximum 30 participants</li>
+                            <li>Without discount</li>
+                        </ul>
+                        <a href="#" class="primary-btn">Choose your plan</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="pricing__item">
+                        <h4>All Ilimitated</h4>
+                        <h3>S/12.00 <span>/ event</span></h3>
+                        <ul>
+                            <li>Ilimitated events</li>
+                            <li>Ilimitated participants</li>
+                            <li>Without discount</li>
+                        </ul>
+                        <a href="#" class="primary-btn">Choose your plan</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="pricing__item">
+                        <h4>Premiun Plus</h4>
+                        <h3>S/15.00 <span>/ event</span></h3>
+                        <ul>
+                            <li>Ilimitated events</li>
+                            <li>Ilimitated participants</li>
+                            <li>Disc. in the next purchase</li>
+                        </ul>
+                        <a href="#" class="primary-btn">Choose your plan</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Pricing Section End -->
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
